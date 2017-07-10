@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
+  
+  
   def index
+     @users = User.all.page(params[:page])
   end
 
   def show
@@ -15,7 +18,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:success] = 'ユーザを登録しました。'
-      redirect_to new_sessions_path # current_userログイン中ユーザのユーザ詳細ページ(users/:id)
+      redirect_to @user # current_userログイン中ユーザのユーザ詳細ページ(users/:id)
     else
       flash.now[:danger] = 'ユーザの登録に失敗しました。'
       render :new
